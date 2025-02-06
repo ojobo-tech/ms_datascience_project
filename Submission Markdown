@@ -4,7 +4,7 @@
 - **Repository Address**: [https://github.com/ojobo-tech/ms_datascience_project](https://github.com/ojobo-tech/ms_datascience_project)
 
 ## Project Description
-The project aims to develop a **Personalized Treatment Recommendation System** for cardiovascular disease (CVD) using machine learning. The system will analyze patient data (e.g., demographics, vital signs, lifestyle factors) to predict CVD risk and recommend tailored treatments. The goal is to improve patient outcomes and reduce healthcare costs by providing data-driven, personalized care.
+The project aims to develop a **Personalized Treatment Recommendation System** for cardiovascular disease (CVD) using machine learning. The system will analyze patient data (e.g., demographics, vital signs, lifestyle factors) to predict CVD risk and recommend tailored treatments to healthcare practitioners who use the system. The goal is to improve patient outcomes, assist healthcare practitioners and reduce healthcare costs by providing data-driven, personalized care.
 
 ## Data Sources
 - **Kaggle Cardiovascular Disease Dataset**: 70,000 rows of patient data, including demographics, vital signs, and lifestyle factors.
