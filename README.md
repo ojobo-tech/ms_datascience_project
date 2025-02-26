@@ -5,7 +5,7 @@ This project aims to develop a **Personalized Treatment Recommendation System** 
 
 ## Data Sources
 - **Kaggle Cardiovascular Disease Dataset**: 70,000 rows of patient data, including demographics, vital signs, and lifestyle factors.
-  - Source: [Kaggle](https://www.kaggle.com/datasets/sulianova/cardiovascular-disease-dataset)
+  - Source: [Kaggle](https://www.kaggle.com/datasets/yasserh/heart-disease-dataset))
 - **MIMIC-III**: A large dataset containing de-identified health data for over 40,000 patients in critical care units.
   - Source: [MIMIC-III Website](https://mimic.physionet.org/)
 
