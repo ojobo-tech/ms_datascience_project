@@ -33,10 +33,10 @@ The key objectives of this study are:
 ## Scope of the Project
 - Dataset: A structured tabular dataset containing 68,000 patient records with features such as age, blood pressure (ap_hi, ap_lo), cholesterol levels, BMI, smoking status, and physical activity.
 - Machine Learning Models: Six algorithms will be tested:
-    Baseline Model: Logistic Regression
-    Tree-Based Models: Decision Tree, Random Forest
-    Boosting Models: XGBoost, LightGBM (Best for tabular data)
-    Deep Learning Model: Multi-Layer Perceptron (MLP) Neural Network
+    - Baseline Model: Logistic Regression
+    - Tree-Based Models: Decision Tree, Random Forest
+    - Boosting Models: XGBoost, LightGBM (Best for tabular data)
+    - Deep Learning Model: Multi-Layer Perceptron (MLP) Neural Network
 - Evaluation Metrics: Accuracy, AUC-ROC, Sensitivity, Specificity, Precision, F1-score.
 - Explainability: SHAP (SHapley Additive Explanations) for AI interpretability.
 - Deployment Strategy: Model integration into a Stream-Lit for real-world applications.
