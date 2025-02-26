@@ -21,7 +21,7 @@ There has been recent advancements in Artificial Intelligence (AI) and Machine L
 
 Traditional cardiovascular disease detection methods rely on the healthcare professional and rule-based scoring systems like WHO CVD Risk Charts. These approaches, while clinically useful, have limitations like a lack of personalization, they do not account for complex interactions between multiple risk factors. Also, manual evaluation may vary among healthcare professionals and screening large populations is resource-intensive.
 
-The goal of this project is to train and evaluate machine learning models to predict CVD risk using secondary patient data. By comparing various AI models including Logistic Regression, Decision Trees, Random Forests, XGBoost, LightGBM, and Neural Networks (MLP), we can determine the most effective approach for real-world deployment.
+The goal of this project is to train and evaluate machine learning models to predict CVD risk using secondary patient data. By comparing various models including Logistic Regression, Decision Trees, Random Forests, XGBoost, and LightGBM, we can determine the most effective approach for real-world deployment.
 
 ## Objectives
 The key objectives of this study are:
