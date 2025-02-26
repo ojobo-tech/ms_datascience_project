@@ -25,24 +25,24 @@ The goal of this project is to train and evaluate machine learning models to pre
 
 ## Objectives
 The key objectives of this study are:
-To develop AI-driven models capable of predicting cardiovascular disease risk using patient health data.
-To compare multiple machine learning algorithms based on accuracy, sensitivity, specificity, and AUC-ROC scores.
-To ensure model explainability using SHAP (Explainable AI) to make predictions interpretable for healthcare professionals.
-To explore model deployment strategies for real-time CVD risk assessment in clinical settings.
+- To develop AI-driven models capable of predicting cardiovascular disease risk using patient health data.
+- To compare multiple machine learning algorithms based on accuracy, sensitivity, specificity, and AUC-ROC scores.
+- To ensure model explainability using SHAP (Explainable AI) to make predictions interpretable for healthcare professionals.
+- To explore model deployment strategies for real-time CVD risk assessment in clinical settings.
 
 ## Scope of the Project
-  Dataset: A structured tabular dataset containing 68,000 patient records with features such as age, blood pressure (ap_hi, ap_lo), cholesterol levels, BMI, smoking status, and physical activity.
-  Machine Learning Models: Six algorithms will be tested:
+- Dataset: A structured tabular dataset containing 68,000 patient records with features such as age, blood pressure (ap_hi, ap_lo), cholesterol levels, BMI, smoking status, and physical activity.
+- Machine Learning Models: Six algorithms will be tested:
     Baseline Model: Logistic Regression
     Tree-Based Models: Decision Tree, Random Forest
     Boosting Models: XGBoost, LightGBM (Best for tabular data)
     Deep Learning Model: Multi-Layer Perceptron (MLP) Neural Network
-  Evaluation Metrics: Accuracy, AUC-ROC, Sensitivity, Specificity, Precision, F1-score.
-  Explainability: SHAP (SHapley Additive Explanations) for AI interpretability.
-  Deployment Strategy: Model integration into a Stream-Lit for real-world applications.
+- Evaluation Metrics: Accuracy, AUC-ROC, Sensitivity, Specificity, Precision, F1-score.
+- Explainability: SHAP (SHapley Additive Explanations) for AI interpretability.
+- Deployment Strategy: Model integration into a Stream-Lit for real-world applications.
 
 ## Expected Outcome
 By the end of this project, I expect to:
-  Identify the best-performing AI model for CVD prediction.
-  Provide interpretable AI insights to support clinical decision-making.
-  Develop a scalable AI-based screening tool for early CVD risk detection.
+- Identify the best performing AI model for CVD prediction.
+- Provide interpretable AI insights to support clinical decision making.
+- Develop a screening tool for early CVD risk detection and treatment recommendation.
