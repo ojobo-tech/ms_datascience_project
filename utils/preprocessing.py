@@ -33,12 +33,12 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
     - Body Mass Index
     - Weight converted from kg to pounds
     """
-    df_eda = df.copy()
-    df_eda = add_features(df_eda)
+    df = df.copy()
     df['bmi'] = df['weight'] / ((df['height'] / 100) ** 2)
     df['weight_lb'] = df['weight'] * 2.20462
     df.drop(columns=['weight'], inplace=True)
     return df
+
 
 def split_features_labels(df: pd.DataFrame, target_column='cardio'):
     """
@@ -65,7 +65,7 @@ def load_and_preprocess_data(csv_path: str):
     drop_columns = ['bp_category', 'bp_category_encoded']
     df.drop(columns=[col for col in drop_columns if col in df.columns], inplace=True)
 
-    # ------------------ 🟦 EDA VERSION ------------------
+    # ------------------ EDA VERSION ------------------
     df_eda = df.copy()
     df_eda = add_features(df_eda)
 
@@ -89,7 +89,7 @@ def load_and_preprocess_data(csv_path: str):
     df_eda['alco'] = df_eda['alco'].map({0: 'No', 1: 'Yes'})
     df_eda['active'] = df_eda['active'].map({0: 'No', 1: 'Yes'})
 
-    # ------------------ 🟩 MODELING VERSION ------------------
+    # ------------------ MODELING VERSION ------------------
     df = clean_data(df)
     df = add_features(df)
 
@@ -109,6 +109,9 @@ def load_and_preprocess_data(csv_path: str):
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, stratify=y, random_state=42
     )
+
+    print("DEBUG: X shape before scaling:", X.shape)
+
 
     # Feature scaling
     scaler = StandardScaler()

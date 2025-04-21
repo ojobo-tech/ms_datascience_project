@@ -4,6 +4,7 @@ from utils.eda import (
     plot_categorical_distributions,
     plot_target_distribution
 )
+from utils.validation import validate_split
 
 def main():
     print("Running main.py")
@@ -17,6 +18,8 @@ def main():
         print("Data Preprocessing Complete!")
         print("Training shape:", X_train.shape)
         print("Testing shape:", X_test.shape)
+
+        validate_split(y_train, y_test)
 
         # Define features for EDA
         num_features = ['age_years', 'height', 'weight_lb', 'bmi', 'ap_hi', 'ap_lo']
@@ -32,3 +35,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
