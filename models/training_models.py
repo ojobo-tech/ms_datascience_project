@@ -14,19 +14,31 @@ from sklearn.preprocessing import StandardScaler
 import xgboost as xgb
 import lightgbm as lgb
 
-from tuning import tune_xgboost
-
 import shap  # Added for SHAP explainability
 
+FEATURE_NAME_MAP = {
+    "age_years": "Age (Years)",
+    "height": "Height (cm)",
+    "weight_lb": "Weight (lbs)",
+    "bmi": "Body Mass Index (BMI)",
+    "ap_hi": "Systolic Blood Pressure",
+    "ap_lo": "Diastolic Blood Pressure",
+    "gender": "Gender",
+    "cholesterol": "Cholesterol Level",
+    "gluc": "Glucose Level",
+    "smoke": "Smoking Status",
+    "alco": "Alcohol Intake",
+    "active": "Physical Activity",
+    "hypertension_encoded": "Hypertension Stage"
+}
+
+def rename_columns_for_eda(df):
+    """
+    Apply human-readable names to feature columns for better interpretability during EDA.
+    """
+    return df.rename(columns=FEATURE_NAME_MAP)
+
 class ModelTrainer:
-    """
-    Class to train, evaluate, and save multiple classification models including:
-    - Logistic Regression
-    - Decision Tree
-    - Random Forest
-    - XGBoost (both original and tuned)
-    - LightGBM
-    """
     def __init__(self, X_train, X_test, y_train, y_test, model_dir='saved_models'):
         self.X_train = X_train
         self.X_test = X_test
@@ -82,36 +94,39 @@ class ModelTrainer:
             "Decision Tree": DecisionTreeClassifier(max_depth=5, random_state=42),
             "Random Forest": RandomForestClassifier(n_estimators=100, random_state=42),
             "LightGBM": lgb.LGBMClassifier(n_estimators=100, learning_rate=0.05, random_state=42),
-            "XGBoost Original": xgb.XGBClassifier(n_estimators=100, learning_rate=0.05, random_state=42)
+            "XGBoost": xgb.XGBClassifier(n_estimators=100, learning_rate=0.05, random_state=42)
         }
 
         for name, model in models.items():
             self.train_and_save_model(model, name)
 
-        print("\n🔍 Running XGBoost Hyperparameter Tuning...")
-        best_xgb, results_df = tune_xgboost(self.X_train, self.y_train)
-        self.evaluate_model(best_xgb, self.X_train, self.y_train, "Tuned XGBoost (Train)")
-        self.evaluate_model(best_xgb, self.X_test, self.y_test, "Tuned XGBoost (Test)")
-        joblib.dump(best_xgb, os.path.join(self.model_dir, "xgboost_tuned.pkl"))
-        results_df.to_csv(os.path.join(self.model_dir, "xgboost_tuning_results.csv"), index=False)
-        print("\n📁 Saved tuned XGBoost model and tuning results.")
-
-        self.explain_with_shap(best_xgb)
+        self.explain_with_shap(models["XGBoost"])
         self.save_results_summary()
+        self.save_waterfall_plot(models["XGBoost"])
 
     def explain_with_shap(self, model):
-        """
-        Generate and save SHAP summary plot for the trained XGBoost model.
-        """
-        explainer = shap.Explainer(model)
-        shap_values = explainer(self.X_test)
+        X_test_named = rename_columns_for_eda(self.X_test)
+        explainer = shap.Explainer(model, feature_names=X_test_named.columns)
+        shap_values = explainer(X_test_named)
+
         plt.figure()
-        shap.summary_plot(shap_values, self.X_test, show=False)
+        shap.summary_plot(shap_values, X_test_named, show=False)
         plt.tight_layout()
         shap_path = os.path.join(self.model_dir, "xgboost_shap_summary.png")
         plt.savefig(shap_path)
         plt.close()
         print(f"📈 SHAP summary saved to {shap_path}")
+
+    def save_waterfall_plot(self, model, index=0):
+        X_test_named = rename_columns_for_eda(self.X_test)
+        explainer = shap.Explainer(model, feature_names=X_test_named.columns)
+        shap_values = explainer(X_test_named)
+
+        shap.plots.waterfall(shap_values[index], show=False)
+        image_path = os.path.join(self.model_dir, f"xgboost_shap_waterfall_{index}.png")
+        plt.savefig(image_path, bbox_inches='tight')
+        plt.close()
+        print(f"📸 Waterfall plot saved to {image_path}")
 
     def save_results_summary(self):
         df = pd.DataFrame(self.results)
@@ -128,5 +143,5 @@ class ModelTrainer:
         plt.savefig(image_path)
         plt.close()
 
-        print(f" File exists? {os.path.exists(image_path)}")
-        print(f" Summary saved to {summary_path} and {image_path}")
+        print(f"📁 File exists? {os.path.exists(image_path)}")
+        print(f"📊 Summary saved to {summary_path} and {image_path}")

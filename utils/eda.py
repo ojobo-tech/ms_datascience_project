@@ -19,7 +19,7 @@ def plot_categorical_distributions(df, cat_features):
     plt.tight_layout()
     plt.show()
 
-def plot_target_distribution(df, target_col='cardio'):
+def plot_target_distribution(df, target_col='CVD Risk'):
     sns.countplot(x=df[target_col])
     plt.title("Target Variable Distribution")
     plt.show()

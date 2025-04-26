@@ -22,8 +22,10 @@ def main():
         validate_split(y_train, y_test)
 
         # Define features for EDA
-        num_features = ['age_years', 'height', 'weight_lb', 'bmi', 'ap_hi', 'ap_lo']
-        cat_features = ['gender', 'cholesterol', 'gluc', 'smoke', 'alco', 'active']
+        # Define features for EDA with renamed columns
+        num_features = ['Age (Years)', 'Height (cm)', 'Weight (lbs)', 'Body Mass Index (BMI)', 'Systolic Blood Pressure', 'Diastolic Blood Pressure']
+        cat_features = ['Gender', 'Cholesterol Level', 'Glucose Level', 'Smoking Status', 'Alcohol Intake', 'Physical Activity']
+
 
         print("\nRunning Exploratory Data Analysis...")
         plot_numerical_distributions(df_eda, num_features)
