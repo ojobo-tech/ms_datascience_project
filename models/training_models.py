@@ -47,6 +47,11 @@ class ModelTrainer:
         self.model_dir = model_dir
         self.results = []
 
+        # 🔧 Drop 'id' and 'gender' if they exist
+        drop_cols = ['id', 'gender']
+        self.X_train = self.X_train.drop(columns=[col for col in drop_cols if col in self.X_train.columns])
+        self.X_test = self.X_test.drop(columns=[col for col in drop_cols if col in self.X_test.columns])
+
         if not os.path.exists(model_dir):
             os.makedirs(model_dir)
 
@@ -118,15 +123,24 @@ class ModelTrainer:
         print(f"📈 SHAP summary saved to {shap_path}")
 
     def save_waterfall_plot(self, model, index=0):
+        # Rename columns for clearer feature names (optional for SHAP plot readability)
         X_test_named = rename_columns_for_eda(self.X_test)
-        explainer = shap.Explainer(model, feature_names=X_test_named.columns)
-        shap_values = explainer(X_test_named)
+    
+        # Create SHAP explainer
+        explainer = shap.Explainer(model, feature_names=self.X_test.columns)
+        shap_values = explainer(self.X_test)
 
+        # Prepare plot figure
+        fig = plt.figure()
         shap.plots.waterfall(shap_values[index], show=False)
+    
+        # Save as image
         image_path = os.path.join(self.model_dir, f"xgboost_shap_waterfall_{index}.png")
         plt.savefig(image_path, bbox_inches='tight')
         plt.close()
+    
         print(f"📸 Waterfall plot saved to {image_path}")
+
 
     def save_results_summary(self):
         df = pd.DataFrame(self.results)

@@ -27,22 +27,25 @@ input_data = {
     "smoke": st.sidebar.radio("Do you smoke?", [0, 1], format_func=lambda x: "Yes" if x else "No"),
     "alco": st.sidebar.radio("Consume alcohol?", [0, 1], format_func=lambda x: "Yes" if x else "No"),
     "active": st.sidebar.radio("Regular Physical activity?", [0, 1], format_func=lambda x: "Yes" if x else "No"),
-    "bmi": 0.0  # Placeholder to compute
 }
 
-# Convert weight to kg for BMI calc
+# Calculate BMI
 weight_kg = input_data["weight_lb"] / 2.20462
-input_data["bmi"] = weight_kg / ((input_data["height"] / 100) ** 2)
+height_m = input_data["height"] / 100
+input_data["bmi"] = weight_kg / (height_m ** 2)
 
-# Convert to dataframe
+# Create DataFrame for model
 input_df = pd.DataFrame([input_data])
+
+# Ensure correct feature order
+expected_features = model.get_booster().feature_names
+input_df = input_df[expected_features]
+
+# Rename columns for SHAP display
+input_df_display = input_df.rename(columns=FEATURE_NAME_MAP)
 
 # Prediction
 if st.button("🔍 Predict Risk"):
-    # Keep only the columns the model was trained on
-    expected_features = ['height', 'ap_hi', 'ap_lo', 'cholesterol', 'gluc', 'smoke', 
-                  'alco', 'active', 'age_years', 'bmi', 'weight_lb']
-    input_df = input_df[expected_features]
     prediction = model.predict(input_df)[0]
     probability = model.predict_proba(input_df)[0][1]
 
@@ -51,13 +54,22 @@ if st.button("🔍 Predict Risk"):
     st.write("**Probability of CVD:**", f"{probability:.2%}")
 
     # SHAP Explanation
-    st.subheader("📊 SHAP Explanation")
-    shap_values = explainer(input_df)
+    st.subheader("📊 SHAP Explanation: Model Decision Making")
+    shap_values = explainer(input_df_display)
+
+    st.markdown("#### 🔹 Summary Plot")
+    fig_summary, ax_summary = plt.subplots()
+    shap.summary_plot(shap_values, input_df_display, show=False)
+    st.pyplot(fig_summary)
+
+    st.markdown("#### 🔹 Waterfall Plot")
+    fig_waterfall, ax_waterfall = plt.subplots()
     shap.plots.waterfall(shap_values[0], show=False)
-    st.pyplot(bbox_inches='tight')
+    plt.tight_layout()
+    st.pyplot(fig_waterfall)
 
     # Top feature contributions
-    st.subheader("🧠 Risk Factor Breakdown")
+    st.subheader("🧠 Risk Breakdown")
     shap_dict = dict(zip(input_df.columns, shap_values[0].values))
     sorted_features = sorted(shap_dict.items(), key=lambda x: abs(x[1]), reverse=True)
 
