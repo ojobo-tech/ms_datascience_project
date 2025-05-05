@@ -126,9 +126,6 @@ For each top contributing SHAP feature, the app:
 * Offers **lifestyle** and **treatment** recommendations.
 * Gives safe **target ranges** and encouragement if within healthy bounds.
 
-## Screenshots (Optional)
-
-Add screenshots of the Streamlit app here.
 
 ## References
 
