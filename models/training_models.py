@@ -14,7 +14,7 @@ from sklearn.preprocessing import StandardScaler
 import xgboost as xgb
 import lightgbm as lgb
 
-import shap  # Added for SHAP explainability
+import shap
 
 FEATURE_NAME_MAP = {
     "age_years": "Age (Years)",
@@ -34,7 +34,7 @@ FEATURE_NAME_MAP = {
 
 def rename_columns_for_eda(df):
     """
-    Apply human-readable names to feature columns for better interpretability during EDA.
+    Applying readable names to feature columns during EDA.
     """
     return df.rename(columns=FEATURE_NAME_MAP)
 
@@ -47,7 +47,6 @@ class ModelTrainer:
         self.model_dir = model_dir
         self.results = []
 
-        # 🔧 Drop 'id' and 'gender' if they exist
         drop_cols = ['id', 'gender']
         self.X_train = self.X_train.drop(columns=[col for col in drop_cols if col in self.X_train.columns])
         self.X_test = self.X_test.drop(columns=[col for col in drop_cols if col in self.X_test.columns])
@@ -120,26 +119,21 @@ class ModelTrainer:
         shap_path = os.path.join(self.model_dir, "xgboost_shap_summary.png")
         plt.savefig(shap_path)
         plt.close()
-        print(f"📈 SHAP summary saved to {shap_path}")
+        print(f"SHAP summary saved to {shap_path}")
 
     def save_waterfall_plot(self, model, index=0):
-        # Rename columns for clearer feature names (optional for SHAP plot readability)
         X_test_named = rename_columns_for_eda(self.X_test)
     
-        # Create SHAP explainer
         explainer = shap.Explainer(model, feature_names=self.X_test.columns)
         shap_values = explainer(self.X_test)
 
-        # Prepare plot figure
         fig = plt.figure()
         shap.plots.waterfall(shap_values[index], show=False)
     
-        # Save as image
         image_path = os.path.join(self.model_dir, f"xgboost_shap_waterfall_{index}.png")
         plt.savefig(image_path, bbox_inches='tight')
         plt.close()
-    
-        print(f"📸 Waterfall plot saved to {image_path}")
+
 
 
     def save_results_summary(self):
@@ -156,6 +150,3 @@ class ModelTrainer:
         image_path = os.path.join(self.model_dir, "model_comparison_summary.png")
         plt.savefig(image_path)
         plt.close()
-
-        print(f"📁 File exists? {os.path.exists(image_path)}")
-        print(f"📊 Summary saved to {summary_path} and {image_path}")

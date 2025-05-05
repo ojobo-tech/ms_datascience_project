@@ -6,13 +6,11 @@ import joblib
 import matplotlib.pyplot as plt
 from utils.recommendations import RECOMMENDATION_MAP, FEATURE_NAME_MAP
 
-# Load the trained model and SHAP explainer
 model = joblib.load("saved_models/xgboost.pkl")
 explainer = shap.Explainer(model)
 
-# Define input UI
 st.set_page_config(page_title="CVD Risk Predictor", layout="wide")
-st.title("🫀 Cardiovascular Risk Predictor with Explainability")
+st.title("🫀 Cardiovascular Risk Predictor and Treatment Recommendation System")
 
 st.sidebar.header("🔎 Enter Patient Details")
 
@@ -29,22 +27,17 @@ input_data = {
     "active": st.sidebar.radio("Regular Physical activity?", [0, 1], format_func=lambda x: "Yes" if x else "No"),
 }
 
-# Calculate BMI
 weight_kg = input_data["weight_lb"] / 2.20462
 height_m = input_data["height"] / 100
 input_data["bmi"] = weight_kg / (height_m ** 2)
 
-# Create DataFrame for model
 input_df = pd.DataFrame([input_data])
 
-# Ensure correct feature order
 expected_features = model.get_booster().feature_names
 input_df = input_df[expected_features]
 
-# Rename columns for SHAP display
 input_df_display = input_df.rename(columns=FEATURE_NAME_MAP)
 
-# Prediction
 if st.button("🔍 Predict Risk"):
     prediction = model.predict(input_df)[0]
     probability = model.predict_proba(input_df)[0][1]
@@ -54,7 +47,7 @@ if st.button("🔍 Predict Risk"):
     st.write("**Probability of CVD:**", f"{probability:.2%}")
 
     # SHAP Explanation
-    st.subheader("📊 SHAP Explanation: Model Decision Making")
+    st.subheader("📊 SHAP Model Explanation")
     shap_values = explainer(input_df_display)
 
     st.markdown("#### 🔹 Summary Plot")
@@ -68,7 +61,6 @@ if st.button("🔍 Predict Risk"):
     plt.tight_layout()
     st.pyplot(fig_waterfall)
 
-    # Top feature contributions
     st.subheader("🧠 Risk Breakdown")
     shap_dict = dict(zip(input_df.columns, shap_values[0].values))
     sorted_features = sorted(shap_dict.items(), key=lambda x: abs(x[1]), reverse=True)

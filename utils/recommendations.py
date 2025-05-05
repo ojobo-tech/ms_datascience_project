@@ -44,20 +44,20 @@ RECOMMENDATION_MAP = {
     },
     "Diastolic Blood Pressure": {
         "risk_reason": "High diastolic pressure can damage blood vessels and increase heart disease risk.",
-        "treatment_advice": "Discuss diuretics or ACE inhibitors with a healthcare provider.",
-        "lifestyle_guidance": "Engage in moderate physical activity, limit alcohol, and follow a DASH diet.",
+        "treatment_advice": "Discuss ACE inhibitors with a healthcare provider.",
+        "lifestyle_guidance": "Engage in physical activity, limit alcohol, and follow a DASH diet.",
         "target": "Keep diastolic pressure below 80 mmHg.",
         "no_risk_recommendation": "Your diastolic pressure is in a healthy range. Maintain a balanced diet and active lifestyle."
     },
     "Cholesterol Level": {
         "risk_reason": "High cholesterol can lead to plaque buildup in arteries, increasing heart attack risk.",
-        "treatment_advice": "Statins may be prescribed to lower cholesterol.",
+        "treatment_advice": "Statins could be prescribed to lower cholesterol.",
         "lifestyle_guidance": "Limit saturated fats, eat more fiber, and consider omega-3 supplements.",
         "target": "Maintain total cholesterol below 200 mg/dL.",
         "no_risk_recommendation": "Great job keeping your cholesterol normal. Stay consistent with healthy eating."
     },
     "Glucose Level": {
-        "risk_reason": "High glucose levels are a precursor to diabetes, which significantly raises CVD risk.",
+        "risk_reason": "High glucose levels are lead to diabetes, leading to CVD risk.",
         "treatment_advice": "Medication or insulin therapy might be required for elevated glucose.",
         "lifestyle_guidance": "Cut down on sugar, increase physical activity, and monitor carbs.",
         "target": "Keep fasting glucose below 100 mg/dL.",
@@ -71,18 +71,18 @@ RECOMMENDATION_MAP = {
         "no_risk_recommendation": "Great that you're not smoking! This is excellent for your heart health."
     },
     "Alcohol Intake": {
-        "risk_reason": "Excessive alcohol can elevate blood pressure and triglycerides.",
+        "risk_reason": "Excessive alcohol can elevate blood pressure.",
         "treatment_advice": "Limit alcohol to moderate levels or abstain if already high risk.",
         "lifestyle_guidance": "Choose non-alcoholic alternatives and avoid binge drinking.",
         "target": "Limit to no more than 1 drink/day (women) or 2 drinks/day (men).",
-        "no_risk_recommendation": "No alcohol intake is a heart-healthy choice. Keep it up!"
+        "no_risk_recommendation": "No alcohol intake is a heart-healthy choice. Keep it up"
     },
     "Physical Activity": {
         "risk_reason": "Inactivity contributes to obesity and poor heart function.",
         "treatment_advice": "Include exercise in your treatment plan with medical guidance.",
         "lifestyle_guidance": "Start with brisk walking or moderate workouts 5 times/week.",
-        "target": "Aim for 150 minutes/week of moderate-intensity exercise.",
-        "no_risk_recommendation": "Staying active is key to prevention. You're on the right path!"
+        "target": "Aim for 150 minutes/week of exercise.",
+        "no_risk_recommendation": "Staying active is key to prevention. You're on the right path"
     },
     "Body Mass Index (BMI)": {
         "risk_reason": "A high BMI is associated with hypertension, diabetes, and CVD.",

@@ -2,7 +2,6 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
-# Human-readable feature name mapping
 FEATURE_NAME_MAP = {
     "age_years": "Age (Years)",
     "height": "Height (cm)",
@@ -35,8 +34,6 @@ def rename_columns_for_eda(df):
 def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     """
     Cleans and filters the dataset by removing outliers and converting age.
-
-    Operations:
     - Converts age from days to years.
     - Filters out unrealistic systolic/diastolic blood pressure values.
     - Removes outliers in height and weight.
@@ -60,10 +57,8 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
 def add_features(df: pd.DataFrame) -> pd.DataFrame:
     """
     Adds engineered features: BMI and weight in pounds, and drops original weight.
-
     Parameters:
         df (pd.DataFrame): Input DataFrame.
-
     Returns:
         pd.DataFrame: DataFrame with new features.
     """

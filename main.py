@@ -7,27 +7,19 @@ from utils.eda import (
 from utils.validation import validate_split
 
 def main():
-    print("Running main.py")
-    print("Starting Data Preprocessing...")
 
     csv_path = 'dataset/cardio_data_processed.csv'
 
     try:
-        print("Loading and preprocessing...")
         X_train, X_test, y_train, y_test, df_eda = load_and_preprocess_data(csv_path)
         print("Data Preprocessing Complete!")
         print("Training shape:", X_train.shape)
         print("Testing shape:", X_test.shape)
 
         validate_split(y_train, y_test)
-
-        # Define features for EDA
-        # Define features for EDA with renamed columns
         num_features = ['Age (Years)', 'Height (cm)', 'Weight (lbs)', 'Body Mass Index (BMI)', 'Systolic Blood Pressure', 'Diastolic Blood Pressure']
         cat_features = ['Gender', 'Cholesterol Level', 'Glucose Level', 'Smoking Status', 'Alcohol Intake', 'Physical Activity']
 
-
-        print("\nRunning Exploratory Data Analysis...")
         plot_numerical_distributions(df_eda, num_features)
         plot_categorical_distributions(df_eda, cat_features)
         plot_target_distribution(df_eda)

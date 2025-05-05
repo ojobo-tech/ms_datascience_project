@@ -18,6 +18,6 @@ FEATURE_NAME_MAPPING = {
 
 def get_readable_feature_names(features):
     """
-    Converts a list of technical feature names into human-readable labels.
+    Converts features to readable labels.
     """
     return [FEATURE_NAME_MAPPING.get(feat, feat) for feat in features]
